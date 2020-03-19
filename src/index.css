@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+}
+
+.top-bar {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 14rem;
+}
+
+.result-text {
+    width: 100%;
+    font-size: 3em !important;
+}
+
+.hidden-label {
+    visibility: hidden;
+}
+
+.visible-label {
+    visibility: visible;
+}
+
+.margin-0 {
+    margin: 0 !important;
+}
+
+.buttons {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.ios .buttons > ion-icon, .divide {
+    transform: scale(1.35);
+}
+
+.md .buttons > ion-icon {
+    transform: scale(.85);
+}
+
+.item-has-focus.label-floating.sc-ion-label-ios-h, .item-has-focus .label-floating.sc-ion-label-ios-h, .item-has-placeholder.label-floating.sc-ion-label-ios-h, .item-has-placeholder .label-floating.sc-ion-label-ios-h, .item-has-value.label-floating.sc-ion-label-ios-h, .item-has-value .label-floating.sc-ion-label-ios-h, ion-item {
+    transform: none !important;
+    -webkit-transform: none !important;
+}
+
+.item-has-focus.label-floating.sc-ion-label-md-h, .item-has-focus .label-floating.sc-ion-label-md-h, .item-has-placeholder.label-floating.sc-ion-label-md-h, .item-has-placeholder .label-floating.sc-ion-label-md-h, .item-has-value.label-floating.sc-ion-label-md-h, .item-has-value .label-floating.sc-ion-label-md-h {
+    transform: none !important;
+    -webkit-transform: none !important;
+}
+
+.fab-button {
+    font-size: 35px !important;
+}
+
+.native-input[disabled], ion-input[disabled], ion-label {
+    opacity: .9 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .ios ion-item {
+        --ion-border-color: var(--ion-color-dark);
+    }
+
+    .md {
+        --ion-item-border-color: var(--ion-color-dark) !important;
+    }
+}
+
+ion-item {
+    --background: transparent;
+}
+
+.margin-top-right-0 {
+    margin-top: 0 !important;
+}
+
+.ios .margin-top-right-0 {
+    margin-right: 8px !important;
+}
+
+.md .margin-top-right-0 {
+    margin-right: 0px !important;
+}
+
+@keyframes slide-animation {
+    from {
+        transform: scale(0);
+    }
+    
+    to {
+        transform: scale(1);
+    }
+}
+
+.slide {
+    animation: slide-animation .15s linear;
+    transition: transform .15s ease-in-out, -webkit-transform .15s ease-in-out;
+}
