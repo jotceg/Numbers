@@ -1,5 +1,5 @@
 {
-  "name": "Numbers",
+  "name": "numbers",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -40,5 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "description": "An Ionic project"
+  "description": "A simple, yet advanced calculator."
 }
