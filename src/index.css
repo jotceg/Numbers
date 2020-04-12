@@ -31,8 +31,12 @@
     font-weight: 500;
 }
 
-.ios .buttons > ion-icon, .divide {
+.divide {
     transform: scale(1.35);
+}
+
+.sc-ion-input-ios-h {
+    --padding-end: 8px !important;
 }
 
 .md .buttons > ion-icon {

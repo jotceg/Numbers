@@ -46,7 +46,7 @@ const ButtonsTable: React.FC = () => {
                                     </IonFab>
                                 ) : (
                                     <IonButton className={`buttons ${button.divide && 'divide'}`} onClick={() => handleButtonClick(button)} color={getColor(button)} expand='full' size='large' fill='clear'>
-                                        {button.icon ? <IonIcon icon={button.icon} /> : button.value}
+                                        {button.icon ? <IonIcon icon={button.icon as any} /> : button.value}
                                     </IonButton>
                                 )
                             }
