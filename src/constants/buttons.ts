@@ -156,6 +156,7 @@ export default [
         onClick: (state, dispatch) => {
             let doesDivingByZero = false;
             let moreThanOneExpression = false;
+            let isExpressionValid = false;
 
             if (state.typed.includes(' ') && state.typed.length > 0 && state.typed !== '') {
                 for (let i = 0; i < state.typed.length; i++) {
@@ -217,8 +218,52 @@ export default [
                 };
             };
 
+            /* firstly, convert a string (typed || result) to an array. Then, map every standalone element (number or symbol) to a single array element. Then determine if the last element is a number.
+            If it is, skip the process. If it isn't, delete it and continue the process of evaluation */
+            // "10 + 5 - " => ["1", "0", " ", "+", " ", "5", " ", "-"] => ["10", "+", "5", "-"] => ["10", "+", "5"] => ["1", "0", " ", "+", " ", "5"] => "10 + 5"
+            if (state.typed !== '' && state.typed.length > 0) {
+                if (state.result !== '' && state.result.length > 0) {
+                    const resultArray = state.result.split('').filter(val => val !== ' '); // "10 + 5 -" => ["1", "0", " ", "+", " ", "5", " ", "-"] => ["1", "0", "+", "5", "-"]
+                    let standaloneElementsResultArray: string[] = [];
+                    let currentIndex = 0;
+
+                    for (let i = 0; i < resultArray.length; i++) {
+                        if (!isNaN(parseInt(resultArray[i]))) {
+                            // it's a number, keep it on the current index
+                            standaloneElementsResultArray[currentIndex] = standaloneElementsResultArray[currentIndex] !== '' && standaloneElementsResultArray[currentIndex] !== undefined ? `${standaloneElementsResultArray[currentIndex]}${resultArray[i]}` : resultArray[i];
+                        } else {
+                            // it's a symbol, shift it to the next index and increase currentIndex by 2
+                            standaloneElementsResultArray[currentIndex + 1] = resultArray[i];
+                            currentIndex += 2;
+                        };
+                    };
+
+                    if (!isNaN(parseInt(standaloneElementsResultArray[standaloneElementsResultArray.length - 1]))) {
+                        // it's a number, set the isExpressionValid to true
+                        isExpressionValid = true;
+                    };
+                } else {
+                    const typedArray = state.typed.split('').filter(val => val !== ' ');
+                    let standaloneElementsTypedArray: string[] = [];
+                    let currentIndex = 0;
+
+                    for (let i = 0; i < typedArray.length; i++) {
+                        if (!isNaN(parseInt(typedArray[i]))) {
+                            standaloneElementsTypedArray[currentIndex] = standaloneElementsTypedArray[currentIndex] !== '' && standaloneElementsTypedArray[currentIndex] !== undefined ? `${standaloneElementsTypedArray[currentIndex]}${typedArray[i]}` : typedArray[i];
+                        } else {
+                            standaloneElementsTypedArray[currentIndex + 1] = typedArray[i];
+                            currentIndex += 2;
+                        };
+                    };
+
+                    if (!isNaN(parseInt(standaloneElementsTypedArray[standaloneElementsTypedArray.length - 1]))) {
+                        isExpressionValid = true;
+                    };
+                };
+            };
+
             if (!doesDivingByZero) {
-                if (state.typed.includes(' ') && moreThanOneExpression && state.typed.length > 0 && state.typed !== '') {
+                if (state.typed.includes(' ') && moreThanOneExpression && isExpressionValid && state.typed.length > 0 && state.typed !== '') {
                     if (state.result !== '' && state.result.length > 0) {
                         const { result } = state;
                         
